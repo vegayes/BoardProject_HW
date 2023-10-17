@@ -10,4 +10,8 @@ public interface BoardService {
 
 	List<Map<String, Object>> selectBoardTypeList();
 
+	
+	// 게시글 목록조회 
+	Map<String, Object> selectBoardList(int boardCode, int cp);
+
 }
