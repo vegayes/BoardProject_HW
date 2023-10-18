@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.STRING;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +55,15 @@ public class BoardServiceImpl implements BoardService{
 		  map.put("boardList", boardList);
 		  
 		return map;
+	}
+
+	// 게시글 상세조회
+	@Override
+	public Board selectBoardList(Map<String, Object> map) {
+		
+		Board board = dao.selectBoardList(map);
+		
+		return board;
 	}
 
 }
