@@ -37,7 +37,6 @@
                     <c:choose>
                     	<%--프로필 이미지가 없을 경우 기본 이미지가 출력 --%>
                     	<c:when test="${empty board.profileImage}">
-                    		                    
                     		<img src="/resources/images/user.png"/>
                     	</c:when>
                     
@@ -57,20 +56,18 @@
                     
                     <!-- 좋아요 하트 -->
                     <span class="like-area">
-                    
-                    	<%-- 누르적이 없는 경우 --%>
-                    	<c:if test="${not empty loginMember}">
-             
                     	
-                    	
-                    	
+                    	<%-- 누르적이 없는 경우, 로그인 하지 않았다. --%>
+                    	<c:if test="${empty likeCheck}">             
+	                        <a class="fa-regular fa-heart" id="boardLike"></a>
                     	</c:if>
-                        <i class="fa-regular fa-heart" id="boardLike"></i>
+						                       
+                    	<%-- 누르적이 있는 경우 --%>
+                    	<c:if test="${not empty likeCheck}">             
+	                        <a class="fa-solid fa-heart" id="boardLike"></a>
+                    	</c:if>
+						                       
                        
-                       
-                        <%-- 누르적이 있는 경우 --%>
-                        <%-- <i class="fa-solid fa-heart" id="boardLike"></i> --%>
-
                         <span>${board.likeCount}</span>
                     </span>
 
@@ -185,6 +182,22 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+	<script>
+		// JSP에서 작성 가능한 언어/ 라이브러리 
+		// -> html , css, js, java(JSTL), EL, JSTL
+	
+		// JSP 해석 우선순위 : JAVA / EL / JSTL > HTML, CSS, JS
+		const boardNo = "${board.boardNo}"
+		
+		const loginMemberNo = "${loginMember.memberNo}";
+		
+		console.log(boardNo);
+		console.log(loginMemberNo);
+		
+	</script>
+	
+	<script src="/resources/js/board/boardDetail.js"></script>
+	
 
 </body>
 </html>

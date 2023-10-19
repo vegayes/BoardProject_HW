@@ -8,6 +8,7 @@ import javax.print.DocFlavor.STRING;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.project.board.model.dao.BoardDAO;
 import edu.kh.project.board.model.dto.Board;
@@ -64,6 +65,52 @@ public class BoardServiceImpl implements BoardService{
 		Board board = dao.selectBoardList(map);
 		
 		return board;
+	}
+
+	// 좋아요 여부 확인 서비스
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int boardLikeCheck(Map<String, Object> map) {
+		
+		
+		int result = dao.boardLikeCheck(map);
+		
+		
+		return result;
+	}
+
+	/**
+	 * 조회수 증가 서비스
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateReadCount(int boardNo) {
+		return dao.updateReadCount(boardNo);
+	}
+
+	/**
+	 *	좋아요 수정 서비스
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateLike(Map<String, Integer> paramMap) {
+		
+		int check = (int)paramMap.get("check"); 
+		
+		System.out.println("check :" + check);
+		
+		int result = 0;
+		
+		if(check == 0) {
+			result = dao.addLike(paramMap);
+
+		}else {
+			result = dao.delLike(paramMap);
+		}
+		
+		if(result == 0) return -1;
+		
+		return dao.countBoardLike(paramMap.get("boardNo"));
 	}
 
 }
