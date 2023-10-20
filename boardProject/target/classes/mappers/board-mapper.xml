@@ -202,5 +202,93 @@
 	</select>
 	
 	
+	<!-- 게시글 삽입   -->
+	<!-- 
+		동적 SQL 
+		- 프로그램 수행 중 SQL을 변경하는 기능
+		<selectKey> 태그 : INSERT/UPDATE 시 사용할 키(시퀀스)를 
+						조회해서 파라미터의 지정된 필드 대입 
+						
+		useGenerateKeys : DB 내부적으로 생성한 키 (시퀀스)를 전달된 파라미터의 필드로 대입 가능 여부 지정
+		
+		order = "BEFORE" : 메인 SQL이 수행되기 전에 selectKey가 수행되도록 지정
+		
+		keyProperty : selectKey 조회 결과를 저장할 파라미터의 필드 
+		             Board의 boardNo 필드에다가 조회 결과를 저장하겠다.
+	 -->
+	
+	<!-- 게시글에 대한 삽입 -->	
+	<!--  board 필드에 No 저장 이미지 삽입 할 때 재활용함.  -->
+	
+	<insert id = "boardInsert" parameterType = "Board" useGeneratedKeys = "true">
+		<selectKey order = "BEFORE" resultType = "_int" keyProperty = "boardNo">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO BOARD
+		VALUES (#{boardNo}, #{boardTitle}, #{boardContent}, 
+		DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+		#{memberNo},
+		#{boardCode})
+	</insert>
+	
+	
+	
+	
+	<!--  
+		동적 SQL 중 <foreach>
+		- 특정 sql 구문을 반복할 때 사용 
+		- 반복되는 사이에 구분자를 추가할 수 있음.
+
+		
+	 -->
+
+
+	<!-- 이미지 리스트 삽입  -->
+	 <!-- 성공된 행의 개추가 반환 됨  -->
+	 <!--  서브쿼리를 A라고 부름 -->
+	  
+	<insert id = "insertImageList" parameterType = "list">
+		INSERT INTO "BOARD_IMG"
+		SELECT SEQ_IMG_NO.NEXTVAL, A.*
+		FROM (
+		
+			<foreach collection="list"  item = "img" separator = " UNION ALL ">
+				SELECT #{img.imagePath} IMG_PATH, 
+					#{img.imageReName} IMG_RENAME,
+					#{img.imageOriginal} IMG_ORIGINAL,
+					#{img.imageOrder} IMG_ORDER,
+					#{img.boardNo} BOARD_NO
+				FROM DUAL
+			</foreach>
+		)A 
+	</insert>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
