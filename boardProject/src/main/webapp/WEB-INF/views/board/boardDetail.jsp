@@ -165,8 +165,8 @@
             <div class="board-btn-area">
 
                  <c:if test="${loginMember.memberNo == board.memberNo}">
-                  <button>수정</button>     
-                  <button>삭제</button>
+                  <button id = "updateBtn">수정</button>     
+                  <button id = "deleteBtn">삭제</button>
                  
                  </c:if>
 

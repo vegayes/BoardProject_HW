@@ -59,3 +59,43 @@ boardLike.addEventListener("click", e => {
 
 });
 
+
+
+
+// 게시글 수정 버튼 클릭 시
+document.getElementById("updateBtn").addEventListener("click", () => {
+
+    console.log("수정 버튼 눌림");
+
+    location.href = location.pathname.replace("board","board2")
+                    + "/update"
+                    + location.search
+
+                // /board2/2/2006/update?cd=1 (GET)
+
+    // location.pathname 
+    // location.pathname.replace("바꾸고자 하는 문자열","바뀐 문자열")
+    // location.search ===> ?값을 가진 매개??
+
+
+
+
+});
+
+
+//게시글 삭제 버튼이 클릭되었을 때 
+// /board2/2/2006/delete (GET)
+document.getElementById("deleteBtn").addEventListener("click", () => {
+
+    console.log("삭제 버튼 눌림");
+
+    location.href = location.pathname.replace("board","board2")
+                    + "/delete"
+                    + location.search
+
+
+});
+
+
+
+
