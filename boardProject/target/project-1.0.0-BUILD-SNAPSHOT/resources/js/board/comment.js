@@ -1,8 +1,16 @@
 // 댓글 목록 조회
 function selectCommentList(){
     
-    fetch()
-    .then()
+    //REST(REpresentational State Transfer) API
+    //  - 자원을 이름(주소)으로 구분하여
+    //    자원의 상태를 주고 받는 것 
+
+    //  주소를 명시하고
+    //  Http Method (GET, POST, PUT, DELETE)를 이용해
+    // 지정된 자원에 대한 CRUD 진행
+    console.log("boardNo를 넘겨줄거임 :" + boardNo);
+    fetch("/comment?boardNo=" + boardNo)
+    .then(response => response.json()) // 응답객체를 parsing 하겠다 json으로 
     .then(cList => {
         console.log(cList);
 
@@ -86,8 +94,8 @@ function selectCommentList(){
                     const deleteBtn = document.createElement("button");
                     deleteBtn.innerText = "삭제";
                     // 삭제 버튼에 onclick 이벤트 속성 추가
-                    deleteBtn.setAttribute("onclick", "deleteComment("+comment.commentNo+")");                       
-
+                    deleteBtn.setAttribute("onclick", "deleteComment("+comment.commentNo+")");   
+                    console.log("나 들어왔어");
 
                     // 버튼 영역 마지막 자식으로 수정/삭제 버튼 추가
                     commentBtnArea.append(updateBtn, deleteBtn);
@@ -136,8 +144,8 @@ addComment.addEventListener("click", e => { // 댓글 등록 버튼이 클릭이
     }
 
     // 3) AJAX를 이용해서 댓글 내용 DB에 저장(INSERT)
-    fetch()
-    .then()
+    fetch("/commnet/insert?commentContent="+commentContent.value + "&boardNo="+boardNo)
+    .then(resp => resp.text())
     .then(result => {
         if(result > 0){ // 등록 성공
             alert("댓글이 등록되었습니다.");
@@ -158,11 +166,14 @@ addComment.addEventListener("click", e => { // 댓글 등록 버튼이 클릭이
 // -----------------------------------------------------------------------------------
 // 댓글 삭제
 function deleteComment(commentNo){
+                    
+    console.log("삭제 버튼 누름 " + commentNo);
 
     if( confirm("정말로 삭제 하시겠습니까?") ){
 
-        fetch()
-        .then()
+        console.log("정말로 삭제 응답")
+        fetch("/commnet/delete?commentNo="+ commentNo)
+        .then(resp => resp.text())
         .then(result => {
             if(result > 0){
                 alert("삭제되었습니다");
@@ -284,8 +295,9 @@ function updateComment(commentNo, btn){
     // 새로 작성된 댓글 내용 얻어오기
     const commentContent = btn.parentElement.previousElementSibling.value;
 
-    fetch()
-    .then()
+
+    fetch("/commnet/update?commentContent="+commentContent.value + "&commentNo="+commentNo)
+    .then(resp => resp.text())
     .then(result => {
         if(result > 0){
             alert("댓글이 수정되었습니다.");
@@ -384,8 +396,8 @@ function insertChildComment(parentNo, btn){
 
 
 
-    fetch()
-    .then()
+    fetch("/commnet/reply?commentContent=" + commentContent + "&parentNo="+parentNo + "&boardNo=" + boardNo)
+    .then(response => response.text())
     .then(result => {
         if(result > 0){ // 등록 성공
             alert("답글이 등록되었습니다.");

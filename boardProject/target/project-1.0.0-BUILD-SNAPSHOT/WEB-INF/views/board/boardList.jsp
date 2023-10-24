@@ -83,8 +83,13 @@
 
             <div class="btn-area">
 
+			
 				<!-- 로그인 상태일 경우 글쓰기 버튼 노출 -->
-                <button id="insertBtn">글쓰기</button>                     
+				<c:if test="${not empty loginMember }">
+	                <button id="insertBtn">글쓰기</button>    				
+				</c:if>
+                
+                                 
 
             </div>
 
@@ -113,7 +118,7 @@
                     		
                     		<%-- 현재 페이지를 제외한 나머지 --%>
                     		<c:otherwise>
-                    			<li><a herf="/board/${boardCode}?cp=${i}">${i}</a></li>	                   		
+                    			<li><a href="/board/${boardCode}/?cp=${i}">${i}</a></li>                  		
                     		</c:otherwise>
                     	</c:choose>
                    		
@@ -160,6 +165,8 @@
 
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
+    
+    <script src = "/resources/js/board/boardList.js"></script>
+    
 </body>
 </html>
