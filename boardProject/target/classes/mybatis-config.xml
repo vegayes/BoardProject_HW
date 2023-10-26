@@ -21,6 +21,9 @@
 	
 		<typeAlias type="edu.kh.project.board.model.dto.BoardImage" alias="BoardImage"/>
 		<typeAlias type="edu.kh.project.board.model.dto.Comment" alias="Comment"/>
+
+		<typeAlias type="edu.kh.project.chatting.model.dto.ChattingRoom" alias="ChattingRoom"/>
+		<typeAlias type="edu.kh.project.chatting.model.dto.Message" alias="Message"/>
 		
 	
 	</typeAliases>
@@ -33,6 +36,7 @@
 		<mapper resource="/mappers/email-mapper.xml"/>
 		<mapper resource="/mappers/myPage-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/chatting-mapper.xml"/>
 	</mappers>
 
 
