@@ -91,4 +91,37 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.countBoardLike",boardNo);
 	}
 
+	/** 검색한 목록 조회의 개수 확인 (페이지네이션 만들기 위해서 얻어와야 함.)
+	 * @param paramMap
+	 * @return
+	 */
+	public int getListCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("boardMapper.getListCount_search", paramMap);
+	}
+
+	/** 검색한 목록 조회 
+	 * @param pagination
+	 * @param paramMap
+	 * @return
+	 */
+	public List<Board> selectBoardList(Pagination pagination, Map<String, Object> paramMap) {
+		// RowBounds 객체
+		// - MyBatis에서 페이징처리를 위해 제공하는 객체
+		// - offset만큼 건너뛰고 그 다음 지정된 행 개수(limi) 만큼 조회
+		
+		// 1) offset계산
+		int offset = (pagination.getCurrentPage()-1) * pagination.getLimit();
+		// 1페이지는 0만큼 건너튀고 조회
+		// 2페이지는 10만큼 건너뛰고 조회 
+		// 3페이지는 20만큼 건너뛰고 조회 
+		
+		
+		// 2) RowBounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		
+		// 3) selectList("namespace.id", 파리미터, RowBounds) 호출
+		return sqlSession.selectList("boardMapper.selectBoardList_search", paramMap, rowBounds);
+}
+
 }

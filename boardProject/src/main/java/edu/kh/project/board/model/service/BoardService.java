@@ -32,4 +32,12 @@ public interface BoardService {
 
 	int updateLike(Map<String, Integer> paramMap);
 
+
+	/** 게시글 검색 목록조회
+	 * @param paramMap
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectBoardList(Map<String, Object> paramMap, int cp);
+
 }
