@@ -267,7 +267,7 @@ public class MyPageController {
 		// 누구에 의해서?
 		// View Resolver의 prefix, suffix를 붙여 JSP 경로를 만든것
 		//return "/WEB-INF/views/common/error.jsp";
-		return "common/error";
+		return "common/error";	
 	}
 	
 	
