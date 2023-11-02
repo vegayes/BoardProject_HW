@@ -36,5 +36,9 @@ public class MainController {
 		// -> prefix + 리턴값 + suffix 로 경로 완성
 		// ** View Resolver ** 
 		return "common/main";
+//		return "redirect:searchFail";
+//		return "/searchFail";
+//		return "/searchSuccess";
+		
 	}
 }
